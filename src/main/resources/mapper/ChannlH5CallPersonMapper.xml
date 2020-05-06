@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.comn.demo.dao.ChannlH5CallPersonDAO" >
+  <resultMap id="BaseResultMap" type="com.comn.demo.beans.ChannlH5CallPerson" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="BELG_PROV_CODE" property="belgProvCode" jdbcType="VARCHAR" />
+    <result column="BELG_CITY_CODE" property="belgCityCode" jdbcType="VARCHAR" />
+    <result column="BELG_DISTRT_CODE" property="belgDistrtCode" jdbcType="VARCHAR" />
+    <result column="PRSN_NAME" property="prsnName" jdbcType="VARCHAR" />
+    <result column="PRSN_PASSWORD" property="prsnPassword" jdbcType="VARCHAR" />
+    <result column="PRSN_TELNUM" property="prsnTelnum" jdbcType="VARCHAR" />
+    <result column="STS_CD" property="stsCd" jdbcType="VARCHAR" />
+    <result column="CRT_TIME" property="crtTime" jdbcType="TIMESTAMP" />
+    <result column="CHNL_STAFF_NUM" property="chnlStaffNum" jdbcType="VARCHAR" />
+    <result column="HALL_ADMIN_FLAG" property="hallAdminFlag" jdbcType="VARCHAR" />
+    <result column="CMCCOL_CHNL_NAME" property="cmccolChnlName" jdbcType="VARCHAR" />
+    <result column="CMCCOL_CHNL_ID" property="cmccolChnlId" jdbcType="VARCHAR" />
+    <result column="IMAGE_IDDRESS" property="imageIddress" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, BELG_PROV_CODE, BELG_CITY_CODE, BELG_DISTRT_CODE, PRSN_NAME, PRSN_PASSWORD, PRSN_TELNUM, 
+    STS_CD, CRT_TIME, CHNL_STAFF_NUM, HALL_ADMIN_FLAG, CMCCOL_CHNL_NAME, CMCCOL_CHNL_ID, 
+    IMAGE_IDDRESS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from channl_h5_call_person
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from channl_h5_call_person
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.comn.demo.beans.ChannlH5CallPerson" >
+    insert into channl_h5_call_person (ID, BELG_PROV_CODE, BELG_CITY_CODE, 
+      BELG_DISTRT_CODE, PRSN_NAME, PRSN_PASSWORD, 
+      PRSN_TELNUM, STS_CD, CRT_TIME, 
+      CHNL_STAFF_NUM, HALL_ADMIN_FLAG, CMCCOL_CHNL_NAME, 
+      CMCCOL_CHNL_ID, IMAGE_IDDRESS)
+    values (#{id,jdbcType=INTEGER}, #{belgProvCode,jdbcType=VARCHAR}, #{belgCityCode,jdbcType=VARCHAR},
+      #{belgDistrtCode,jdbcType=VARCHAR}, #{prsnName,jdbcType=VARCHAR}, #{prsnPassword,jdbcType=VARCHAR}, 
+      #{prsnTelnum,jdbcType=VARCHAR}, #{stsCd,jdbcType=VARCHAR}, #{crtTime,jdbcType=TIMESTAMP}, 
+      #{chnlStaffNum,jdbcType=VARCHAR}, #{hallAdminFlag,jdbcType=VARCHAR}, #{cmccolChnlName,jdbcType=VARCHAR}, 
+      #{cmccolChnlId,jdbcType=VARCHAR}, #{imageIddress,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.comn.demo.beans.ChannlH5CallPerson" >
+    insert into channl_h5_call_person
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="belgProvCode != null" >
+        BELG_PROV_CODE,
+      </if>
+      <if test="belgCityCode != null" >
+        BELG_CITY_CODE,
+      </if>
+      <if test="belgDistrtCode != null" >
+        BELG_DISTRT_CODE,
+      </if>
+      <if test="prsnName != null" >
+        PRSN_NAME,
+      </if>
+      <if test="prsnPassword != null" >
+        PRSN_PASSWORD,
+      </if>
+      <if test="prsnTelnum != null" >
+        PRSN_TELNUM,
+      </if>
+      <if test="stsCd != null" >
+        STS_CD,
+      </if>
+      <if test="crtTime != null" >
+        CRT_TIME,
+      </if>
+      <if test="chnlStaffNum != null" >
+        CHNL_STAFF_NUM,
+      </if>
+      <if test="hallAdminFlag != null" >
+        HALL_ADMIN_FLAG,
+      </if>
+      <if test="cmccolChnlName != null" >
+        CMCCOL_CHNL_NAME,
+      </if>
+      <if test="cmccolChnlId != null" >
+        CMCCOL_CHNL_ID,
+      </if>
+      <if test="imageIddress != null" >
+        IMAGE_IDDRESS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="belgProvCode != null" >
+        #{belgProvCode,jdbcType=VARCHAR},
+      </if>
+      <if test="belgCityCode != null" >
+        #{belgCityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="belgDistrtCode != null" >
+        #{belgDistrtCode,jdbcType=VARCHAR},
+      </if>
+      <if test="prsnName != null" >
+        #{prsnName,jdbcType=VARCHAR},
+      </if>
+      <if test="prsnPassword != null" >
+        #{prsnPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="prsnTelnum != null" >
+        #{prsnTelnum,jdbcType=VARCHAR},
+      </if>
+      <if test="stsCd != null" >
+        #{stsCd,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTime != null" >
+        #{crtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chnlStaffNum != null" >
+        #{chnlStaffNum,jdbcType=VARCHAR},
+      </if>
+      <if test="hallAdminFlag != null" >
+        #{hallAdminFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="cmccolChnlName != null" >
+        #{cmccolChnlName,jdbcType=VARCHAR},
+      </if>
+      <if test="cmccolChnlId != null" >
+        #{cmccolChnlId,jdbcType=VARCHAR},
+      </if>
+      <if test="imageIddress != null" >
+        #{imageIddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.comn.demo.beans.ChannlH5CallPerson" >
+    update channl_h5_call_person
+    <set >
+      <if test="belgProvCode != null" >
+        BELG_PROV_CODE = #{belgProvCode,jdbcType=VARCHAR},
+      </if>
+      <if test="belgCityCode != null" >
+        BELG_CITY_CODE = #{belgCityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="belgDistrtCode != null" >
+        BELG_DISTRT_CODE = #{belgDistrtCode,jdbcType=VARCHAR},
+      </if>
+      <if test="prsnName != null" >
+        PRSN_NAME = #{prsnName,jdbcType=VARCHAR},
+      </if>
+      <if test="prsnPassword != null" >
+        PRSN_PASSWORD = #{prsnPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="prsnTelnum != null" >
+        PRSN_TELNUM = #{prsnTelnum,jdbcType=VARCHAR},
+      </if>
+      <if test="stsCd != null" >
+        STS_CD = #{stsCd,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTime != null" >
+        CRT_TIME = #{crtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chnlStaffNum != null" >
+        CHNL_STAFF_NUM = #{chnlStaffNum,jdbcType=VARCHAR},
+      </if>
+      <if test="hallAdminFlag != null" >
+        HALL_ADMIN_FLAG = #{hallAdminFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="cmccolChnlName != null" >
+        CMCCOL_CHNL_NAME = #{cmccolChnlName,jdbcType=VARCHAR},
+      </if>
+      <if test="cmccolChnlId != null" >
+        CMCCOL_CHNL_ID = #{cmccolChnlId,jdbcType=VARCHAR},
+      </if>
+      <if test="imageIddress != null" >
+        IMAGE_IDDRESS = #{imageIddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.comn.demo.beans.ChannlH5CallPerson" >
+    update channl_h5_call_person
+    set BELG_PROV_CODE = #{belgProvCode,jdbcType=VARCHAR},
+      BELG_CITY_CODE = #{belgCityCode,jdbcType=VARCHAR},
+      BELG_DISTRT_CODE = #{belgDistrtCode,jdbcType=VARCHAR},
+      PRSN_NAME = #{prsnName,jdbcType=VARCHAR},
+      PRSN_PASSWORD = #{prsnPassword,jdbcType=VARCHAR},
+      PRSN_TELNUM = #{prsnTelnum,jdbcType=VARCHAR},
+      STS_CD = #{stsCd,jdbcType=VARCHAR},
+      CRT_TIME = #{crtTime,jdbcType=TIMESTAMP},
+      CHNL_STAFF_NUM = #{chnlStaffNum,jdbcType=VARCHAR},
+      HALL_ADMIN_FLAG = #{hallAdminFlag,jdbcType=VARCHAR},
+      CMCCOL_CHNL_NAME = #{cmccolChnlName,jdbcType=VARCHAR},
+      CMCCOL_CHNL_ID = #{cmccolChnlId,jdbcType=VARCHAR},
+      IMAGE_IDDRESS = #{imageIddress,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectPersonListTotal" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    select
+    count(*)
+    from channl_h5_call_person
+    where CMCCOL_CHNL_ID = #{cmccolChnlId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectCallPersonList" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List"/>
+    from channl_h5_call_person
+    where CMCCOL_CHNL_ID = #{cmccolChnlId,jdbcType=VARCHAR}
+    <if test="start != null and start !='' and limit != null and limit !=''">
+      LIMIT #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+    </if>
+  </select>
+
+  <update id="updateCallState" parameterType="java.util.Map" >
+    update
+    channl_h5_call_person
+    set
+    STS_CD = #{state, jdbcType=VARCHAR}
+    where ID in
+    <foreach collection="personList" index="index" item="item"
+             separator="," open="(" close=" )">
+    #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
+
+  <select id="selectUserByUsername" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List"/>
+    from channl_h5_call_person
+    where PRSN_TELNUM = #{telnum,jdbcType=VARCHAR}
+   </select>
+</mapper>

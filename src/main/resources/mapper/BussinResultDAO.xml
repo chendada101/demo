@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.comn.demo.dao.BussinResultDAO">
+  <resultMap id="BaseResultMap" type="com.comn.demo.beans.BussinResult">
+    <id column="CALL_ID" jdbcType="INTEGER" property="callId" />
+    <result column="TELNUM" jdbcType="VARCHAR" property="telnum" />
+    <result column="TASK_NAME" jdbcType="VARCHAR" property="taskName" />
+    <result column="NEW_BUSSIN_RESULT" jdbcType="VARCHAR" property="newBussinResult" />
+    <result column="OLD_BUSSIN_RESULT" jdbcType="VARCHAR" property="oldBussinResult" />
+    <result column="STATE" jdbcType="VARCHAR" property="state" />
+    <result column="SUBTIME" jdbcType="TIMESTAMP" property="subtime" />
+    <result column="IS_UPDATE" jdbcType="VARCHAR" property="isUpdate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    CALL_ID, TELNUM, TASK_NAME, NEW_BUSSIN_RESULT, OLD_BUSSIN_RESULT, STATE, SUBTIME,
+    IS_UPDATE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from bussin_result
+    where CALL_ID = #{callId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from bussin_result
+    where CALL_ID = #{callId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.comn.demo.beans.BussinResult">
+    insert into bussin_result (CALL_ID, TELNUM, TASK_NAME,
+      NEW_BUSSIN_RESULT, OLD_BUSSIN_RESULT, STATE,
+      SUBTIME, IS_UPDATE)
+    values (#{callId,jdbcType=INTEGER}, #{telnum,jdbcType=VARCHAR}, #{taskName,jdbcType=VARCHAR},
+      #{newBussinResult,jdbcType=VARCHAR}, #{oldBussinResult,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR},
+      #{subtime,jdbcType=TIMESTAMP}, #{isUpdate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.comn.demo.beans.BussinResult">
+    insert into bussin_result
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="callId != null">
+        CALL_ID,
+      </if>
+      <if test="telnum != null">
+        TELNUM,
+      </if>
+      <if test="taskName != null">
+        TASK_NAME,
+      </if>
+      <if test="newBussinResult != null">
+        NEW_BUSSIN_RESULT,
+      </if>
+      <if test="oldBussinResult != null">
+        OLD_BUSSIN_RESULT,
+      </if>
+      <if test="state != null">
+        STATE,
+      </if>
+      <if test="subtime != null">
+        SUBTIME,
+      </if>
+      <if test="isUpdate != null">
+        IS_UPDATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="callId != null">
+        #{callId,jdbcType=INTEGER},
+      </if>
+      <if test="telnum != null">
+        #{telnum,jdbcType=VARCHAR},
+      </if>
+      <if test="taskName != null">
+        #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="newBussinResult != null">
+        #{newBussinResult,jdbcType=VARCHAR},
+      </if>
+      <if test="oldBussinResult != null">
+        #{oldBussinResult,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="subtime != null">
+        #{subtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isUpdate != null">
+        #{isUpdate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.comn.demo.beans.BussinResult">
+    update bussin_result
+    <set>
+      <if test="telnum != null">
+        TELNUM = #{telnum,jdbcType=VARCHAR},
+      </if>
+      <if test="taskName != null">
+        TASK_NAME = #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="newBussinResult != null">
+        NEW_BUSSIN_RESULT = #{newBussinResult,jdbcType=VARCHAR},
+      </if>
+      <if test="oldBussinResult != null">
+        OLD_BUSSIN_RESULT = #{oldBussinResult,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="subtime != null">
+        SUBTIME = #{subtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isUpdate != null">
+        IS_UPDATE = #{isUpdate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CALL_ID = #{callId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.comn.demo.beans.BussinResult">
+    update bussin_result
+    set TELNUM = #{telnum,jdbcType=VARCHAR},
+      TASK_NAME = #{taskName,jdbcType=VARCHAR},
+      NEW_BUSSIN_RESULT = #{newBussinResult,jdbcType=VARCHAR},
+      OLD_BUSSIN_RESULT = #{oldBussinResult,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=VARCHAR},
+      SUBTIME = #{subtime,jdbcType=TIMESTAMP},
+      IS_UPDATE = #{isUpdate,jdbcType=VARCHAR}
+    where CALL_ID = #{callId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectWaitList" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from bussin_result
+    <where>
+      <if test="state != null and state !=''">
+        STATE like concat(#{state},'%')
+      </if>
+      <if test="isUpdate != null and isUpdate !=''">
+        AND IS_UPDATE = #{isUpdate,jdbcType=VARCHAR}
+      </if>
+      <if test="result != null and result !=''">
+        AND NEW_BUSSIN_RESULT = #{result,jdbcType=VARCHAR}
+      </if>
+      <if test="taskName != null and taskName !=''">
+        AND TASK_NAME like concat('%' ,#{taskName},'%')
+      </if>
+    </where>
+    LIMIT #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+  </select>
+  <select id="selectWaitListTotal" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    select
+   count(*)
+    from bussin_result
+    <where>
+      <if test="state != null and state !=''">
+         STATE like concat(#{state},'%')
+      </if>
+      <if test="isUpdate != null and isUpdate !=''">
+        AND IS_UPDATE = #{isUpdate,jdbcType=VARCHAR}
+      </if>
+      <if test="result != null and result !=''">
+        AND NEW_BUSSIN_RESULT = #{result,jdbcType=VARCHAR}
+      </if>
+      <if test="taskName != null and taskName !=''">
+        AND TASK_NAME like concat('%' ,#{taskName},'%')
+      </if>
+    </where>
+     </select>
+</mapper>

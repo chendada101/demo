@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.comn.demo.dao.TaskDAO">
+  <resultMap id="BaseResultMap" type="com.comn.demo.beans.Task">
+    <id column="TASK_ID" jdbcType="INTEGER" property="taskId" />
+    <result column="TASK_NAME" jdbcType="VARCHAR" property="taskName" />
+    <result column="TASK_CONTENT" jdbcType="VARCHAR" property="taskContent" />
+    <result column="START_TIME" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="END_TIME" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="TASK_STATE" jdbcType="VARCHAR" property="taskState" />
+    <result column="TASK_IVR" jdbcType="VARCHAR" property="taskIvr" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    TASK_ID, TASK_NAME, TASK_CONTENT, START_TIME, END_TIME, TASK_STATE, TASK_IVR
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from task
+    where TASK_ID = #{taskId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from task
+    where TASK_ID = #{taskId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.comn.demo.beans.Task">
+    insert into task (TASK_ID, TASK_NAME, TASK_CONTENT, 
+      START_TIME, END_TIME, TASK_STATE, 
+      TASK_IVR)
+    values (#{taskId,jdbcType=INTEGER}, #{taskName,jdbcType=VARCHAR}, #{taskContent,jdbcType=VARCHAR}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{taskState,jdbcType=VARCHAR}, 
+      #{taskIvr,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.comn.demo.beans.Task">
+    insert into task
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="taskId != null">
+        TASK_ID,
+      </if>
+      <if test="taskName != null">
+        TASK_NAME,
+      </if>
+      <if test="taskContent != null">
+        TASK_CONTENT,
+      </if>
+      <if test="startTime != null">
+        START_TIME,
+      </if>
+      <if test="endTime != null">
+        END_TIME,
+      </if>
+      <if test="taskState != null">
+        TASK_STATE,
+      </if>
+      <if test="taskIvr != null">
+        TASK_IVR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="taskId != null">
+        #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="taskName != null">
+        #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskContent != null">
+        #{taskContent,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskState != null">
+        #{taskState,jdbcType=VARCHAR},
+      </if>
+      <if test="taskIvr != null">
+        #{taskIvr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.comn.demo.beans.Task">
+    update task
+    <set>
+      <if test="taskName != null">
+        TASK_NAME = #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskContent != null">
+        TASK_CONTENT = #{taskContent,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskState != null">
+        TASK_STATE = #{taskState,jdbcType=VARCHAR},
+      </if>
+      <if test="taskIvr != null">
+        TASK_IVR = #{taskIvr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TASK_ID = #{taskId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.comn.demo.beans.Task">
+    update task
+    set TASK_NAME = #{taskName,jdbcType=VARCHAR},
+      TASK_CONTENT = #{taskContent,jdbcType=VARCHAR},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      TASK_STATE = #{taskState,jdbcType=VARCHAR},
+      TASK_IVR = #{taskIvr,jdbcType=VARCHAR}
+    where TASK_ID = #{taskId,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="selectTaskList" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+    <include refid="Base_Column_List" />
+    from task
+    <where>
+      <if test="taskName != null and taskName !=''">
+        TASK_NAME like concat('%' ,#{taskName},'%')
+      </if>
+    </where>
+
+    LIMIT #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+
+
+  </select>
+
+  <select id="selectTaskTotal" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select
+    count(*)
+    from task
+    <where>
+      <if test="taskName != null and taskName !=''">
+        TASK_NAME like concat('%' ,#{taskName},'%')
+      </if>
+    </where>
+
+  </select>
+</mapper>

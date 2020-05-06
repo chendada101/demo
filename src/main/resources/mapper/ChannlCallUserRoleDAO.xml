@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.comn.demo.dao.ChannlCallUserRoleDAO" >
+  <resultMap id="BaseResultMap" type="com.comn.demo.beans.ChannlCallUserRole" >
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="PRSN_TELNUM" property="prsnTelnum" jdbcType="VARCHAR" />
+    <result column="ROLE_PRIV_CODE" property="rolePrivCode" jdbcType="VARCHAR" />
+    <result column="CRT_USER_ID" property="crtUserId" jdbcType="VARCHAR" />
+    <result column="CRT_TIME" property="crtTime" jdbcType="TIMESTAMP" />
+    <result column="CRT_APP_SYS_ID" property="crtAppSysId" jdbcType="VARCHAR" />
+    <result column="MODF_USER_ID" property="modfUserId" jdbcType="VARCHAR" />
+    <result column="MODF_APP_SYS_ID" property="modfAppSysId" jdbcType="VARCHAR" />
+    <result column="MODF_TIME" property="modfTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <insert id="insert" parameterType="com.comn.demo.beans.ChannlCallUserRole" >
+    insert into channl_call_user_role (ID, PRSN_TELNUM, ROLE_PRIV_CODE, 
+      CRT_USER_ID, CRT_TIME, CRT_APP_SYS_ID, 
+      MODF_USER_ID, MODF_APP_SYS_ID, MODF_TIME
+      )
+    values (#{id,jdbcType=INTEGER}, #{prsnTelnum,jdbcType=VARCHAR}, #{rolePrivCode,jdbcType=VARCHAR},
+      #{crtUserId,jdbcType=VARCHAR}, #{crtTime,jdbcType=TIMESTAMP}, #{crtAppSysId,jdbcType=VARCHAR}, 
+      #{modfUserId,jdbcType=VARCHAR}, #{modfAppSysId,jdbcType=VARCHAR}, #{modfTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.comn.demo.beans.ChannlCallUserRole" >
+    insert into channl_call_user_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="prsnTelnum != null" >
+        PRSN_TELNUM,
+      </if>
+      <if test="rolePrivCode != null" >
+        ROLE_PRIV_CODE,
+      </if>
+      <if test="crtUserId != null" >
+        CRT_USER_ID,
+      </if>
+      <if test="crtTime != null" >
+        CRT_TIME,
+      </if>
+      <if test="crtAppSysId != null" >
+        CRT_APP_SYS_ID,
+      </if>
+      <if test="modfUserId != null" >
+        MODF_USER_ID,
+      </if>
+      <if test="modfAppSysId != null" >
+        MODF_APP_SYS_ID,
+      </if>
+      <if test="modfTime != null" >
+        MODF_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="prsnTelnum != null" >
+        #{prsnTelnum,jdbcType=VARCHAR},
+      </if>
+      <if test="rolePrivCode != null" >
+        #{rolePrivCode,jdbcType=VARCHAR},
+      </if>
+      <if test="crtUserId != null" >
+        #{crtUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTime != null" >
+        #{crtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtAppSysId != null" >
+        #{crtAppSysId,jdbcType=VARCHAR},
+      </if>
+      <if test="modfUserId != null" >
+        #{modfUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="modfAppSysId != null" >
+        #{modfAppSysId,jdbcType=VARCHAR},
+      </if>
+      <if test="modfTime != null" >
+        #{modfTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="selectRoleListByTel" parameterType="string" resultType="java.util.Map">
+    select
+    ROLE_PRIV_CODE title
+    from channl_call_user_role r
+   <where>
+   <if test="telphone != null and telphone != ' '">
+     r.PRSN_TELNUM = #{telphone,jdbcType=VARCHAR}
+   </if>
+   </where>
+  </select>
+
+  <insert id="insertAllUserRole" parameterType= "java.util.List">
+    insert channl_call_user_role(PRSN_TELNUM,ROLE_PRIV_CODE,CRT_TIME)
+    values
+    <foreach collection="listRole" index= "index" item= "item" separator=",">
+      (
+      #{item.prsnTelnum,jdbcType=VARCHAR},
+      #{item.rolePrivCode,jdbcType=VARCHAR},
+      #{item.crtTime,jdbcType=TIMESTAMP}
+      )
+    </foreach>
+  </insert>
+
+  <delete id="deleteAllUserRole" parameterType="java.util.Map">
+    delete from
+    channl_call_user_role
+    where
+    ROLE_PRIV_CODE = #{staffPower,jdbcType=VARCHAR}
+    AND PRSN_TELNUM in
+    <foreach collection="personList" index=" index" item="item" separator="," open="(" close=")">
+    #{item.prsnTelnum, jdbcType=VARCHAR}
+  </foreach>
+  </delete>
+
+  <delete id="deleteUserRole" parameterType="java.lang.String">
+    delete from
+    channl_call_user_role
+    where
+    ROLE_PRIV_CODE = #{staffPower,jdbcType=VARCHAR}
+    AND PRSN_TELNUM = #{prsnTelnum,jdbcType=VARCHAR}
+
+  </delete>
+
+</mapper>

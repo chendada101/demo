@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.comn.demo.dao.ChannlBannerDAO" >
+  <resultMap id="BaseResultMap" type="com.comn.demo.beans.ChannlBanner" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="CONTENT_TYPE" property="contentType" jdbcType="VARCHAR" />
+    <result column="BEAR_MODE" property="bearMode" jdbcType="VARCHAR" />
+    <result column="COURSE_NAME" property="courseName" jdbcType="VARCHAR" />
+    <result column="IMAGE_ADDRESS" property="imageAddress" jdbcType="VARCHAR" />
+    <result column="COURSE_ADDR" property="courseAddr" jdbcType="VARCHAR" />
+    <result column="CRT_TIME" property="crtTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CONTENT_TYPE, BEAR_MODE, COURSE_NAME, IMAGE_ADDRESS, COURSE_ADDR, CRT_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from channl_banner
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from channl_banner
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.comn.demo.beans.ChannlBanner" >
+    insert into channl_banner (ID, CONTENT_TYPE, BEAR_MODE, 
+      COURSE_NAME, IMAGE_ADDRESS, COURSE_ADDR, 
+      CRT_TIME)
+    values (#{id,jdbcType=BIGINT}, #{contentType,jdbcType=VARCHAR}, #{bearMode,jdbcType=VARCHAR}, 
+      #{courseName,jdbcType=VARCHAR}, #{imageAddress,jdbcType=VARCHAR}, #{courseAddr,jdbcType=VARCHAR}, 
+      #{crtTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.comn.demo.beans.ChannlBanner" >
+    insert into channl_banner
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="contentType != null" >
+        CONTENT_TYPE,
+      </if>
+      <if test="bearMode != null" >
+        BEAR_MODE,
+      </if>
+      <if test="courseName != null" >
+        COURSE_NAME,
+      </if>
+      <if test="imageAddress != null" >
+        IMAGE_ADDRESS,
+      </if>
+      <if test="courseAddr != null" >
+        COURSE_ADDR,
+      </if>
+      <if test="crtTime != null" >
+        CRT_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="contentType != null" >
+        #{contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="bearMode != null" >
+        #{bearMode,jdbcType=VARCHAR},
+      </if>
+      <if test="courseName != null" >
+        #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="imageAddress != null" >
+        #{imageAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="courseAddr != null" >
+        #{courseAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTime != null" >
+        #{crtTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.comn.demo.beans.ChannlBanner" >
+    update channl_banner
+    <set >
+      <if test="contentType != null" >
+        CONTENT_TYPE = #{contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="bearMode != null" >
+        BEAR_MODE = #{bearMode,jdbcType=VARCHAR},
+      </if>
+      <if test="courseName != null" >
+        COURSE_NAME = #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="imageAddress != null" >
+        IMAGE_ADDRESS = #{imageAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="courseAddr != null" >
+        COURSE_ADDR = #{courseAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTime != null" >
+        CRT_TIME = #{crtTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.comn.demo.beans.ChannlBanner" >
+    update channl_banner
+    set CONTENT_TYPE = #{contentType,jdbcType=VARCHAR},
+      BEAR_MODE = #{bearMode,jdbcType=VARCHAR},
+      COURSE_NAME = #{courseName,jdbcType=VARCHAR},
+      IMAGE_ADDRESS = #{imageAddress,jdbcType=VARCHAR},
+      COURSE_ADDR = #{courseAddr,jdbcType=VARCHAR},
+      CRT_TIME = #{crtTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectBannerList" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+    <include refid="Base_Column_List" />
+    from channl_banner
+
+  </select>
+
+  <select id="selectBannerTotal" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select count(*)  from channl_banner
+   </select>
+</mapper>

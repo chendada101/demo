@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.comn.demo.dao.ChannlInfoDAO" >
+  <resultMap id="BaseResultMap" type="com.comn.demo.beans.ChannlInfo" >
+    <id column="CMCCOL_CHNL_ID" property="cmccolChnlId" jdbcType="INTEGER" />
+    <result column="CUST_TELNUM" property="custTelnum" jdbcType="VARCHAR" />
+    <result column="CUST_NAME" property="custName" jdbcType="VARCHAR" />
+    <result column="BELG_PROV_CODE" property="belgProvCode" jdbcType="VARCHAR" />
+    <result column="BELG_CITY_CODE" property="belgCityCode" jdbcType="VARCHAR" />
+    <result column="BELG_DISTRT_CODE" property="belgDistrtCode" jdbcType="VARCHAR" />
+    <result column="PROV_CHNL_ID" property="provChnlId" jdbcType="VARCHAR" />
+    <result column="VALID_STS_CD" property="validStsCd" jdbcType="VARCHAR" />
+    <result column="PHYSCL_STORE_NM" property="physclStoreNm" jdbcType="VARCHAR" />
+    <result column="PHYSCL_USER_TOTAL" property="physclUserTotal" jdbcType="VARCHAR" />
+    <result column="PHYSCL_STORE_ADDR" property="physclStoreAddr" jdbcType="VARCHAR" />
+    <result column="CRT_TIME" property="crtTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CMCCOL_CHNL_ID, CUST_TELNUM, CUST_NAME, BELG_PROV_CODE, BELG_CITY_CODE, BELG_DISTRT_CODE,
+    PROV_CHNL_ID, VALID_STS_CD, PHYSCL_STORE_NM, PHYSCL_USER_TOTAL, PHYSCL_STORE_ADDR,
+    CRT_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from channl_info
+    where CMCCOL_CHNL_ID = #{cmccolChnlId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from channl_info
+    where CMCCOL_CHNL_ID = #{cmccolChnlId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.comn.demo.beans.ChannlInfo" >
+    insert into channl_info (CMCCOL_CHNL_ID, CUST_TELNUM, CUST_NAME,
+      BELG_PROV_CODE, BELG_CITY_CODE, BELG_DISTRT_CODE,
+      PROV_CHNL_ID, VALID_STS_CD, PHYSCL_STORE_NM,
+      PHYSCL_USER_TOTAL, PHYSCL_STORE_ADDR, CRT_TIME
+      )
+    values (#{cmccolChnlId,jdbcType=INTEGER}, #{custTelnum,jdbcType=VARCHAR}, #{custName,jdbcType=VARCHAR},
+      #{belgProvCode,jdbcType=VARCHAR}, #{belgCityCode,jdbcType=VARCHAR}, #{belgDistrtCode,jdbcType=VARCHAR},
+      #{provChnlId,jdbcType=VARCHAR}, #{validStsCd,jdbcType=VARCHAR}, #{physclStoreNm,jdbcType=VARCHAR},
+      #{physclUserTotal,jdbcType=VARCHAR}, #{physclStoreAddr,jdbcType=VARCHAR}, #{crtTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.comn.demo.beans.ChannlInfo" >
+    insert into channl_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cmccolChnlId != null" >
+        CMCCOL_CHNL_ID,
+      </if>
+      <if test="custTelnum != null" >
+        CUST_TELNUM,
+      </if>
+      <if test="custName != null" >
+        CUST_NAME,
+      </if>
+      <if test="belgProvCode != null" >
+        BELG_PROV_CODE,
+      </if>
+      <if test="belgCityCode != null" >
+        BELG_CITY_CODE,
+      </if>
+      <if test="belgDistrtCode != null" >
+        BELG_DISTRT_CODE,
+      </if>
+      <if test="provChnlId != null" >
+        PROV_CHNL_ID,
+      </if>
+      <if test="validStsCd != null" >
+        VALID_STS_CD,
+      </if>
+      <if test="physclStoreNm != null" >
+        PHYSCL_STORE_NM,
+      </if>
+      <if test="physclUserTotal != null" >
+        PHYSCL_USER_TOTAL,
+      </if>
+      <if test="physclStoreAddr != null" >
+        PHYSCL_STORE_ADDR,
+      </if>
+      <if test="crtTime != null" >
+        CRT_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cmccolChnlId != null" >
+        #{cmccolChnlId,jdbcType=INTEGER},
+      </if>
+      <if test="custTelnum != null" >
+        #{custTelnum,jdbcType=VARCHAR},
+      </if>
+      <if test="custName != null" >
+        #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="belgProvCode != null" >
+        #{belgProvCode,jdbcType=VARCHAR},
+      </if>
+      <if test="belgCityCode != null" >
+        #{belgCityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="belgDistrtCode != null" >
+        #{belgDistrtCode,jdbcType=VARCHAR},
+      </if>
+      <if test="provChnlId != null" >
+        #{provChnlId,jdbcType=VARCHAR},
+      </if>
+      <if test="validStsCd != null" >
+        #{validStsCd,jdbcType=VARCHAR},
+      </if>
+      <if test="physclStoreNm != null" >
+        #{physclStoreNm,jdbcType=VARCHAR},
+      </if>
+      <if test="physclUserTotal != null" >
+        #{physclUserTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="physclStoreAddr != null" >
+        #{physclStoreAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTime != null" >
+        #{crtTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.comn.demo.beans.ChannlInfo" >
+    update channl_info
+    <set >
+      <if test="custTelnum != null" >
+        CUST_TELNUM = #{custTelnum,jdbcType=VARCHAR},
+      </if>
+      <if test="custName != null" >
+        CUST_NAME = #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="belgProvCode != null" >
+        BELG_PROV_CODE = #{belgProvCode,jdbcType=VARCHAR},
+      </if>
+      <if test="belgCityCode != null" >
+        BELG_CITY_CODE = #{belgCityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="belgDistrtCode != null" >
+        BELG_DISTRT_CODE = #{belgDistrtCode,jdbcType=VARCHAR},
+      </if>
+      <if test="provChnlId != null" >
+        PROV_CHNL_ID = #{provChnlId,jdbcType=VARCHAR},
+      </if>
+      <if test="validStsCd != null" >
+        VALID_STS_CD = #{validStsCd,jdbcType=VARCHAR},
+      </if>
+      <if test="physclStoreNm != null" >
+        PHYSCL_STORE_NM = #{physclStoreNm,jdbcType=VARCHAR},
+      </if>
+      <if test="physclUserTotal != null" >
+        PHYSCL_USER_TOTAL = #{physclUserTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="physclStoreAddr != null" >
+        PHYSCL_STORE_ADDR = #{physclStoreAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTime != null" >
+        CRT_TIME = #{crtTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where CMCCOL_CHNL_ID = #{cmccolChnlId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.comn.demo.beans.ChannlInfo" >
+    update channl_info
+    set CUST_TELNUM = #{custTelnum,jdbcType=VARCHAR},
+      CUST_NAME = #{custName,jdbcType=VARCHAR},
+      BELG_PROV_CODE = #{belgProvCode,jdbcType=VARCHAR},
+      BELG_CITY_CODE = #{belgCityCode,jdbcType=VARCHAR},
+      BELG_DISTRT_CODE = #{belgDistrtCode,jdbcType=VARCHAR},
+      PROV_CHNL_ID = #{provChnlId,jdbcType=VARCHAR},
+      VALID_STS_CD = #{validStsCd,jdbcType=VARCHAR},
+      PHYSCL_STORE_NM = #{physclStoreNm,jdbcType=VARCHAR},
+      PHYSCL_USER_TOTAL = #{physclUserTotal,jdbcType=VARCHAR},
+      PHYSCL_STORE_ADDR = #{physclStoreAddr,jdbcType=VARCHAR},
+      CRT_TIME = #{crtTime,jdbcType=TIMESTAMP}
+    where CMCCOL_CHNL_ID = #{cmccolChnlId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectChannList" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from channl_info
+    <where>
+      <if test="storeNm != null and storeNm !=''">
+        PHYSCL_STORE_NM like concat('%' ,#{storeNm},'%')
+      </if>
+      <if test="belgProvCode != null and belgProvCode !=''">
+        AND BELG_PROV_CODE =  #{belgProvCode,jdbcType=VARCHAR}
+      </if>
+      <if test="belgCityCode != null and belgCityCode !=''">
+        AND BELG_CITY_CODE =  #{belgCityCode,jdbcType=VARCHAR}
+      </if>
+      <if test="belgDistrtCode != null and belgDistrtCode !=''">
+        AND BELG_DISTRT_CODE=  #{belgDistrtCode,jdbcType=VARCHAR}
+      </if>
+    </where>
+    LIMIT #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectChannListTotal" parameterType="java.util.Map" resultType="java.lang.Integer">
+    select
+    count(*)
+    from channl_info
+    <where>
+      <if test="storeNm != null and storeNm !=''">
+        PHYSCL_STORE_NM like concat('%' ,#{storeNm},'%')
+      </if>
+      <if test="storeNm != null and storeNm !=''">
+        AND BELG_PROV_CODE =  #{belgProvCode,jdbcType=VARCHAR}
+      </if>
+      <if test="storeNm != null and storeNm !=''">
+        AND BELG_CITY_CODE =  #{belgCityCode,jdbcType=VARCHAR}
+      </if>
+      <if test="storeNm != null and storeNm !=''">
+        AND BELG_DISTRT_CODE=  #{belgDistrtCode,jdbcType=VARCHAR}
+      </if>
+    </where>
+    </select>
+
+
+  <select id="selectOpenChannList" resultType="java.util.Map" >
+  select
+  CMCCOL_CHNL_ID cmccolChnlId,PHYSCL_STORE_NM physclStoreNm
+  from channl_info
+  where VALID_STS_CD = "0"
+  </select>
+</mapper>
